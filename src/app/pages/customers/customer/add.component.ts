@@ -20,6 +20,7 @@ export class AddComponent implements OnInit {
   billingCountry: Array<any> = []
   groups: Array<any> = []
   selectedGroups: Array<any> = []
+  selectedGroupsValid: string = '';
   loading = false;
   languages = [];
   public scrollbarOptions = { axis: 'y', theme: 'minimal-dark' };
@@ -116,6 +117,8 @@ export class AddComponent implements OnInit {
           });
         });
 
+        // Update validation flag for pre-selected groups
+        this.selectedGroupsValid = this.selectedGroups.length > 0 ? 'valid' : '';
 
       }, error => {
         this.loading = false;
@@ -209,6 +212,8 @@ export class AddComponent implements OnInit {
     } else {
       this.selectedGroups.splice(index, 1); // remove
     }
+    // Update validation flag
+    this.selectedGroupsValid = this.selectedGroups.length > 0 ? 'valid' : '';
   }
   onAddCustomer() {
     if (this.buttonText == 'Save') {

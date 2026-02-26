@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { ManufactureService } from '../../../shared/services/manufacture.service';
 import { ConfigService } from '../../../shared/services/config.service';
-import * as moment from 'moment';
+import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { NbDialogService } from '@nebular/theme';
 import { ProductService } from '../services/product.service';
@@ -151,7 +151,7 @@ export class ProductFormComponent implements OnInit {
 
   ngAfterViewInit() {
 
-    if (this.product != null) {
+    if (this.product != null && this.product.images) {
       //console.log(JSON.stringify(this.product.images));
       this.images = this.product.images;
       // this.imagesManager.setImages(this.product);
@@ -463,6 +463,7 @@ export class ProductFormComponent implements OnInit {
       });
       delete productObject.selectedLanguage;
       if (this.product.id) {
+        productObject.id = this.product.id; // Ensure ID is in the body
         this.productService.updateProduct(this.product.id, productObject)
           .subscribe(res => {
             this.loading = false;

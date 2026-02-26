@@ -251,10 +251,11 @@
                 <label class="col-sm-3 col-form-label inputLabel">{{ 'CUSTOMERS.GROUPS' | translate }} *</label>
                 <div class="col-sm-12 group-block">
                   <nb-checkbox *ngFor="let group of groups" (change)="addRole(group)" [value]="group.checked"
-                    [disabled]="group.disabled">
+                    [disabled]="group.disabled" [(ngModel)]="group.checked" [name]="'group_' + group.id">
                     {{ group.name }}
                   </nb-checkbox>
                 </div>
+                <input type="hidden" [(ngModel)]="selectedGroupsValid" name="selectedGroups" required />
               </div>
 
 

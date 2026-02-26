@@ -18,8 +18,7 @@ export class ProductService {
   }
 
   getListOfProducts(params): Observable<any> {
-    //release 3.2.1 use V2
-    return this.crudService.get(`/v2/products`, params);
+    return this.crudService.get(`/v1/products`, params);
   }
 
   updateProductFromTable(id, product): Observable<any> {
@@ -30,14 +29,14 @@ export class ProductService {
     const params = {
       store: this.storageService.getMerchant()
     };
-    return this.crudService.put(`/v2/private/product/${id}`, product, { params });
+    return this.crudService.put(`/v1/private/product/${id}`, product, { params });
   }
 
   getProductById(id): Observable<any> {
     const params = {
       lang: '_all'
     };
-    return this.crudService.get(`/v1/product/${id}`, params);
+    return this.crudService.get(`/v1/products/${id}`, params);
   }
 
   getProductDefinitionById(id): Observable<any> {
@@ -58,7 +57,7 @@ export class ProductService {
     const params = {
       store: this.storageService.getMerchant()
     };
-    return this.crudService.post(`/v2/private/product/definition`, product, { params });
+    return this.crudService.post(`/v1/private/product`, product, { params });
   }
 
   deleteProduct(id): Observable<any> {
@@ -66,7 +65,7 @@ export class ProductService {
   }
 
   getProductTypes(): Observable<any> {
-    return this.crudService.get(`/v1/private/product/types`);
+    return this.crudService.get(`/v1/private/products/types`);
   }
 
   checkProductSku(code): Observable<any> {
