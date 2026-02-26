@@ -9,6 +9,12 @@
 
       <form class="form-inline filter_section">
         <div class="filter_left_section">
+          <button type="button" nbButton status="info" size="small" (click)="exportToCSV()" class="mr-2">
+            <nb-icon icon="download-outline"></nb-icon> Export CSV
+          </button>
+          <button type="button" nbButton status="danger" size="small" (click)="exportToPDF()">
+            <nb-icon icon="file-text-outline"></nb-icon> Export PDF
+          </button>
         </div>
         <div class="filter_right_section">
           <ngx-store-autocomplete (onStore)="onSelectStore($event)"></ngx-store-autocomplete>

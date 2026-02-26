@@ -3,6 +3,7 @@ import { LocalDataSource } from 'ng2-smart-table';
 import { Router } from '@angular/router';
 import { StorageService } from '../../shared/services/storage.service';
 import { CustomersService } from '../services/customer.service';
+import { CustomerExportService } from '../services/customer-export.service';
 import { StoreService } from '../../store-management/services/store.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
@@ -25,8 +26,10 @@ export class ListComponent implements OnInit {
   selectedStore: String = '';
   searchValue: string = '';
   params = this.loadParams();
+  allCustomers: any[] = [];
   constructor(
     private customersService: CustomersService,
+    private customerExportService: CustomerExportService,
     public router: Router,
     private toastr: ToastrService,
     private storageService: StorageService,
@@ -69,6 +72,7 @@ export class ListComponent implements OnInit {
     this.customersService.getCustomers(this.params)
       .subscribe(customer => {
         this.loadingList = false;
+        this.allCustomers = customer.customers;
         this.source.load(customer.customers);
         this.totalCount = customer.totalPages;
       }, error => {
@@ -209,5 +213,23 @@ export class ListComponent implements OnInit {
     });
     this.errorService.success('COMMON.SUCCESS_REMOVE');
     this.router.navigate(['/pages/customer/list']);
+  }
+
+  exportToCSV() {
+    if (this.allCustomers.length === 0) {
+      this.toastr.warning(this.translate.instant('CUSTOMERS.NO_DATA_TO_EXPORT'));
+      return;
+    }
+    this.customerExportService.exportToCSV(this.allCustomers, 'customers');
+    this.toastr.success(this.translate.instant('CUSTOMERS.EXPORT_SUCCESS'));
+  }
+
+  exportToPDF() {
+    if (this.allCustomers.length === 0) {
+      this.toastr.warning(this.translate.instant('CUSTOMERS.NO_DATA_TO_EXPORT'));
+      return;
+    }
+    this.customerExportService.exportToPDF(this.allCustomers, 'customers');
+    this.toastr.success(this.translate.instant('CUSTOMERS.EXPORT_SUCCESS'));
   }
 }
