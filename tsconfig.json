@@ -17,6 +17,9 @@
       "es2017",
       "dom"
     ],
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "plugins": [
       {
         "name": "tslint-language-service"
