@@ -42,7 +42,7 @@ jobs:
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: dist-artifacts
+        name: dist-artifacts-${{ github.sha }}
         path: dist/
         retention-days: 7
     
